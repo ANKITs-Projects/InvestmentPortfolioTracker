@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+body {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
+  overflow-y: scroll;      
+  background-color: rgb(204, 201, 234);  
+}
+
+body::-webkit-scrollbar {
+  display: none;             
+}

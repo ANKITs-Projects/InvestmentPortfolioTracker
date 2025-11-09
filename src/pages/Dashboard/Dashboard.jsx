@@ -1,7 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { getUserData } from "../../firebase/firestore";
+import { auth } from "../../firebase/config"; // ✅ make sure you import this
+import { Card } from "../../components/Card";
+import { AssetTable } from "../../components/AssetTable";
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { PortfolioOverview } from "../../components/PortfolioOverview";
 
 export const Dashboard = () => {
+  const { userData } = useAuth();
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div className="w-[80%] mx-auto">
+      <div className="p-6 text-neutral-700 flex justify-between">
+        <div>
+          {userData ? (
+            <h3 className="font-bold text-3xl ">
+              Hi,{" "}
+              <span className="font-bold text-emerald-400">
+                {userData.profile.name}
+              </span>
+            </h3>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+        <div>
+          <Link
+            to={"/addassets"}
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-md shadow-lg transition"
+          >
+            Add Asset
+          </Link>
+        </div>
+      </div>
+
+      <div className="bg-white min-h-[250px] flex flex-col rounded-md p-6 mx-auto shadow-xl">
+        <h3 className="font-bold text-xl text-neutral-700 mb-6 ">
+          Portfolio Overview
+        </h3>
+
+        {userData?.assets.length > 0 ? (
+          
+            <PortfolioOverview />
+          
+        ) : (
+          <div className="flex flex-1 items-center justify-center min-h-[150px]">
+            <Link
+              to="/addassets"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-lg transition-all duration-200 ease-in-out"
+            >
+              Add Asset
+            </Link>
+          </div>
+        )}
+      </div>
+
+      <AssetTable />
+    </div>
+  );
+};

@@ -9,7 +9,7 @@ import { doc, setDoc } from "firebase/firestore";
 export const signup = async (name, email, password) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-
+  
   // Store user profile in Firestore
   await setDoc(doc(db, "users", user.uid), {
     name,
@@ -17,7 +17,7 @@ export const signup = async (name, email, password) => {
     createdAt: new Date()
   });
 
-  return user;
+  return user
 };
 
 export const login = async (email, password) => {

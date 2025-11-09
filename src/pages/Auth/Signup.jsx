@@ -35,7 +35,7 @@ export const Signup = () => {
         alert("SignUp Successfuly")
         navigate('/dashboard', { replace: true })
     }catch(err){
-       setError(error.message);
+       setError(err.message);
     }
   };
 
