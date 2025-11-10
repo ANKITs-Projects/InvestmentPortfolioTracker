@@ -2,9 +2,10 @@
 import React from "react";
 import landingImg from "../assets/landingImg.png";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export const LandingPageSection = () => {
-  const { userAssets, loading } = useAuth();
+  const {user, userAssets, loading } = useAuth();
 
   const totalInvested = userAssets.reduce(
     (acc, asset) =>
@@ -43,6 +44,20 @@ export const LandingPageSection = () => {
             Monitor portfolios, review transactions and make data-driven
             decisions — all in one place.
           </p>
+          {!user &&<Link
+              to="/login"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-md shadow transition-transform duration-200 hover:scale-105"
+            >
+              Get Started
+            </Link>}
+            {user && userAssets.length ==0 &&<Link
+              to="/addassets"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-md shadow transition-transform duration-200 hover:scale-105"
+            >
+              Track your Investment
+            </Link>
+
+            }
         </div>
 
         {/* Optional preview card / stats on large screens */}
