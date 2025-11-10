@@ -9,7 +9,7 @@ export const Card = ({ title, value, color }) => {
         </div>
 
         <div className="text-right">
-          <p className={`text-2xl font-bold text-${color}-600`}>
+          <p className={`text-2xl font-bold ${color}`}>
             {value.toLocaleString()}
           </p>    
         </div>

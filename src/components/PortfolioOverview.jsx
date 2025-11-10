@@ -14,7 +14,7 @@ export const PortfolioOverview = () => {
     );
   }
 
-  if (!userAssets || userAssets.length === 0) {
+  if ( userAssets.length === 0) {
     return (
       <div className="bg-white p-6 rounded-lg shadow text-center text-gray-500">
         No userAssets yet.
@@ -56,7 +56,7 @@ export const PortfolioOverview = () => {
           value={`${profitLoss >= 0 ? "+" : ""}$${profitLoss.toFixed(
             2
           )} (${profitPercent}%)`}
-          color={profitLoss >= 0 ? "green" : "red"}
+          color={profitLoss >= 0 ? "text-green-600" : "text-red-500"}
         />
       </div>
     </div>

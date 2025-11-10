@@ -40,7 +40,7 @@ export const AddAsset = () => {
     } catch (err) {
       setError("Failed to save asset. Please try again.");
     }finally{
-      refreshUserData()
+      await refreshUserData()
     }
   };
 
@@ -135,7 +135,7 @@ export const AddAsset = () => {
         </button>
 
         <div className="absolute top-2 right-3 text-gray-600 hover:text-black">
-          <Link to={"/"}>
+          <Link to={"/dashboard"}>
             <RxCross2 />
           </Link>
         </div>

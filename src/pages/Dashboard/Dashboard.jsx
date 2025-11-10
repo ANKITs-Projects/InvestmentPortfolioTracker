@@ -27,9 +27,9 @@ export const Dashboard = () => {
         <div>
           <Link
             to={"/addassets"}
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-md shadow-lg transition"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-md shadow "
           >
-            Add Asset
+          + Add Asset
           </Link>
         </div>
       </div>
@@ -40,16 +40,15 @@ export const Dashboard = () => {
         </h3>
 
         {userData?.assets.length > 0 ? (
-          
-            <PortfolioOverview />
-          
+          <PortfolioOverview />
         ) : (
-          <div className="flex flex-1 items-center justify-center min-h-[150px]">
+          <div className="flex flex-col items-center justify-center min-h-[200px] bg-gray-50 rounded-lg border border-gray-200 space-y-5">
+            <p className="text-gray-500 text-lg">No assets found</p>
             <Link
               to="/addassets"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-lg transition-all duration-200 ease-in-out"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-md shadow transition-transform duration-200 hover:scale-105"
             >
-              Add Asset
+              + Add Asset
             </Link>
           </div>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
 import { signup } from '../../firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export const Signup = () => {
 
@@ -9,8 +10,10 @@ export const Signup = () => {
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
+  const {refreshUserData} = useAuth()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,6 +25,7 @@ export const Signup = () => {
           setError("Password Must Have At least 6 Charector");
           return;
         }
+        setLoading(true)
         setError("");
         const user = await signup(name, email, password);
         
@@ -32,10 +36,13 @@ export const Signup = () => {
             email: user.email,
           })
         );
+        await refreshUserData(user.uid)
         alert("SignUp Successfuly")
         navigate('/dashboard', { replace: true })
     }catch(err){
        setError(err.message);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -113,7 +120,7 @@ export const Signup = () => {
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
-        Signup
+         {loading ? "Signing up..." : "Signup"}
       </button>
 
       <p className="mt-4 text-center text-gray-600 text-sm">

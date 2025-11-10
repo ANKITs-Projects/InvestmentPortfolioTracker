@@ -7,17 +7,17 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [userAssets, setUserAssets] = useState(null);
+  const [userData, setUserData] = useState([]);
+  const [userAssets, setUserAssets] = useState([]);
   const [loading, setLoading] = useState(true);
 
 
-    const refreshUserData = async () => {
-    if (user) {
+    const refreshUserData = async (uid = user.uid) => {
+    if (uid) {
       setLoading(true)
-      const data = await getUserData(user.uid);
+      const data = await getUserData(uid);
       setUserData(data);
-      const assets = await getUserAssets(user.uid)
+      const assets = await getUserAssets(uid)
       setUserAssets(assets)
       setLoading(false)
     }
@@ -27,8 +27,8 @@ export const AuthProvider = ({ children }) => {
     try {
       await signOut(auth);
       setUser(null);
-      setUserData(null);
-      setUserAssets(null)
+      setUserData([]);
+      setUserAssets([])
       localStorage.removeItem("user");
     } catch (err) {
       console.log("Error logging out: ", err);
@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   // Listen to Auth changes
   useEffect(() => {
+    
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
@@ -46,8 +47,8 @@ export const AuthProvider = ({ children }) => {
         setUserAssets(assets)
       } else {
         setUser(null);
-        setUserData(null);
-        setUserAssets(null)
+        setUserData([]);
+        setUserAssets([])
       }
       setLoading(false);
     });
