@@ -14,6 +14,7 @@ import { Home } from "./pages/Home/Home";
 import { AddAsset } from "./components/AddAsset";
 import { UpdateAssets } from "./components/UpdateAssets";
 import { Atom } from "react-loading-indicators";
+import { Footer } from "./components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -90,6 +91,7 @@ function App() {
             />
           </Routes>
         </main>
+        <Footer/>
       </QueryClientProvider>
     </>
   );
